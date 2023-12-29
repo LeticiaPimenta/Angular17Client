@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{data.pokemon.name}}</h1>
+<div mat-dialog-content>
+  <div>
+    <p>Moves</p>
+    @for (move of data.pokemon.moves; track $index) {
+      <div>{{move.move.name}}</div>
+    }
+    @empty {
+      <p>This pokemon has no moves</p>
+    }
+  </div>
+  <div>
+    <p>Tyes</p>
+    @for (type of data.pokemon.types; track $index) {
+      <div>{{type.type.name}}</div>
+    }
+  </div>
+  <div>
+    @if (shownShiny) {
+        <img src={{data.pokemon.sprites.back.shiny}}>
+        <button mat-button (click)="setHideShiny()">Hide Shiny Butt</button>
+    }
+    @else {
+      <button mat-button (click)="setShowShiny()">Show Shiny Butt</button>
+    }
+
+    @switch(showShiny){
+      @case(true){
+        <div>Show shiny is true</div>
+      }
+      @case(false){
+        <div>Show shiny is false</div>
+      }
+    }
+    <div>
+      @defer (on hover){
+        <img src={{data.pokemon.sprites.front_shiny}}>
+      }
+      @placeholder {
+        <span>Hover for front shiny</span>
+      }
+    </div>
+  </div>
+</div>
+<div></div>
+<div mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</div>
